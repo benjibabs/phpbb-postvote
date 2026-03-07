@@ -1,0 +1,13 @@
+{% if POSTVOTE_ENABLED %}
+<div class="postvote-sort-controls">
+	<span>{{ lang('POSTVOTE_SORT_LABEL') }}:</span>
+	{% if POSTVOTE_SORT_ACTIVE %}
+		<strong>{{ lang('POSTVOTE_SORT_BY_SCORE') }}</strong>
+		&bull; <a href="{{ U_VIEW_TOPIC }}&amp;vpsort=date">{{ lang('POSTVOTE_SORT_BY_DATE') }}</a>
+	{% else %}
+		<a href="{{ U_VIEW_TOPIC }}">{{ lang('POSTVOTE_SORT_BY_SCORE') }}</a>
+		&bull; <strong>{{ lang('POSTVOTE_SORT_BY_DATE') }}</strong>
+	{% endif %}
+	&mdash; <a href="{{ POSTVOTE_LEADERBOARD_URL }}">{{ lang('POSTVOTE_LEADERBOARD') }}</a>
+</div>
+{% endif %}

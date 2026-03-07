@@ -1,0 +1,25 @@
+{
+	"name": "benjibabs/postvote",
+	"type": "phpbb-extension",
+	"description": "Reddit/StackOverflow-style post voting, user reputation, leaderboards, and vote-based sorting for phpBB.",
+	"version": "1.0.0",
+	"keywords": ["phpbb", "extension", "voting", "reputation", "upvote", "downvote"],
+	"license": "GPL-2.0-only",
+	"authors": [
+		{
+			"name": "Babatope (Ben) Babajide",
+			"email": "Ben@itcrackteam.com"
+		}
+	],
+	"require": {
+		"php": ">=8.0",
+		"phpbb/phpbb": ">=3.3.0,<4.0.0@dev",
+		"composer/installers": "~1.0 || ~2.0"
+	},
+	"extra": {
+		"display-name": "PostVote",
+		"soft-require": {
+			"phpbb/phpbb": ">=3.3.0,<4.0.0@dev"
+		}
+	}
+}

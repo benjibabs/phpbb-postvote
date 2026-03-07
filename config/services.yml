@@ -1,0 +1,44 @@
+services:
+
+    benjibabs.postvote.listener:
+        class: benjibabs\postvote\event\listener
+        arguments:
+            - '@auth'
+            - '@cache.driver'
+            - '@config'
+            - '@dbal.conn'
+            - '@language'
+            - '@path_helper'
+            - '@request'
+            - '@routing.helper'
+            - '@template'
+            - '@user'
+            - '%core.root_path%'
+            - '%core.php_ext%'
+        tags:
+            - { name: event.listener }
+
+    benjibabs.postvote.vote_controller:
+        class: benjibabs\postvote\controller\vote_controller
+        arguments:
+            - '@auth'
+            - '@cache.driver'
+            - '@config'
+            - '@dbal.conn'
+            - '@language'
+            - '@request'
+            - '@user'
+            - '%core.root_path%'
+            - '%core.php_ext%'
+
+    benjibabs.postvote.leaderboard_controller:
+        class: benjibabs\postvote\controller\leaderboard_controller
+        arguments:
+            - '@cache.driver'
+            - '@config'
+            - '@dbal.conn'
+            - '@language'
+            - '@template'
+            - '@user'
+            - '%core.root_path%'
+            - '%core.php_ext%'

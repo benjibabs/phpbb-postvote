@@ -1,0 +1,69 @@
+<!-- INCLUDE overall_header.html -->
+
+<div id="postvote-leaderboard" class="postvote-leaderboard-page">
+
+	<h2>{{ lang('POSTVOTE_LEADERBOARD') }}</h2>
+
+	<div class="postvote-lb-section">
+		<h3>{{ lang('POSTVOTE_LEADERBOARD_TOP_USERS') }}</h3>
+		<table class="table1">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>{{ lang('USERNAME') }}</th>
+					<th>{{ lang('POSTVOTE_REPUTATION') }}</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% if top_users is defined and top_users|length %}
+					{% set i = 1 %}
+					{% for row in top_users %}
+					<tr class="{% if i is odd %}bg1{% else %}bg2{% endif %}">
+						<td>{{ i }}</td>
+						<td><a href="{{ row.U_PROFILE }}">{{ row.USERNAME }}</a></td>
+						<td>{{ row.REPUTATION }}</td>
+					</tr>
+					{% set i = i + 1 %}
+					{% endfor %}
+				{% else %}
+					<tr><td colspan="3">{{ lang('POSTVOTE_NO_VOTES_YET') }}</td></tr>
+				{% endif %}
+			</tbody>
+		</table>
+	</div>
+
+	<div class="postvote-lb-section">
+		<h3>{{ lang('POSTVOTE_LEADERBOARD_TOP_POSTS') }}</h3>
+		<table class="table1">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>{{ lang('POST') }}</th>
+					<th>{{ lang('AUTHOR') }}</th>
+					<th>{{ lang('POSTVOTE_SCORE') }}</th>
+					<th>&#9650; / &#9660;</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% if top_posts is defined and top_posts|length %}
+					{% set j = 1 %}
+					{% for row in top_posts %}
+					<tr class="{% if j is odd %}bg1{% else %}bg2{% endif %}">
+						<td>{{ j }}</td>
+						<td><a href="{{ row.U_VIEW_POST }}">{{ row.POST_SUBJECT }}</a></td>
+						<td>{{ row.POSTER_NAME }}</td>
+						<td>{{ row.VOTE_SCORE }}</td>
+						<td>&#9650; {{ row.VOTE_UP }} / &#9660; {{ row.VOTE_DOWN }}</td>
+					</tr>
+					{% set j = j + 1 %}
+					{% endfor %}
+				{% else %}
+					<tr><td colspan="5">{{ lang('POSTVOTE_NO_VOTES_YET') }}</td></tr>
+				{% endif %}
+			</tbody>
+		</table>
+	</div>
+
+</div>
+
+<!-- INCLUDE overall_footer.html -->

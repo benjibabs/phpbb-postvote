@@ -1,0 +1,9 @@
+benjibabs_postvote_vote:
+    path: /postvote/vote
+    defaults: { _controller: benjibabs.postvote.vote_controller:handle }
+    methods: [POST]
+
+benjibabs_postvote_leaderboard:
+    path: /postvote/leaderboard
+    defaults: { _controller: benjibabs.postvote.leaderboard_controller:handle }
+    methods: [GET]

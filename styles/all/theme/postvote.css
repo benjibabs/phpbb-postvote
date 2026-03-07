@@ -1,0 +1,128 @@
+/* PostVote Extension - Voting widget styles */
+
+/*
+ * The widget is rendered at viewtopic_body_post_buttons_list_after,
+ * which is inside #post_content, after the .post-buttons <ul>.
+ * Float right so it mirrors the position of the action buttons.
+ */
+.postvote-widget {
+    display: inline-flex;
+    flex-direction: row;      /* ▲ score ▼ laid out horizontally */
+    align-items: center;
+    gap: 3px;
+    padding: 2px 6px;
+    margin: 0 0 4px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fafafa;
+    float: right;
+    font-size: 13px;
+    clear: right;             /* stack below .post-buttons if both float right */
+}
+
+.postvote-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 24px;
+    padding: 0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    color: #666;
+    transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.postvote-btn:hover:not(:disabled) {
+    background: #e8f0fe;
+    border-color: #4a90d9;
+    color: #4a90d9;
+}
+
+.postvote-btn:disabled {
+    cursor: default;
+    opacity: 0.4;
+}
+
+.postvote-up.postvote-active,
+.postvote-up.postvote-active:hover {
+    background: #2e7d32;
+    border-color: #2e7d32;
+    color: #fff;
+}
+
+.postvote-down.postvote-active,
+.postvote-down.postvote-active:hover {
+    background: #c62828;
+    border-color: #c62828;
+    color: #fff;
+}
+
+.postvote-score {
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.2;
+    text-align: center;
+    min-width: 20px;
+}
+
+.postvote-score.postvote-score-positive { color: #2e7d32; }
+.postvote-score.postvote-score-negative { color: #c62828; }
+
+/* Sort controls above post list */
+.postvote-sort-controls {
+    padding: 4px 0;
+    font-size: 12px;
+    color: #555;
+}
+
+.postvote-sort-controls a {
+    color: #4a90d9;
+    text-decoration: none;
+}
+
+.postvote-sort-controls a:hover {
+    text-decoration: underline;
+}
+
+/* Leaderboard page */
+.postvote-leaderboard-page {
+    padding: 10px;
+}
+
+.postvote-lb-section {
+    margin-bottom: 30px;
+}
+
+.postvote-lb-section h3 {
+    margin-bottom: 8px;
+}
+
+/* Notification toast */
+.postvote-toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    background: #323232;
+    color: #fff;
+    font-size: 13px;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.postvote-toast.show {
+    opacity: 1;
+}
+
+.postvote-toast.error {
+    background: #c62828;
+}

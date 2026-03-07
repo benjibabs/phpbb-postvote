@@ -1,0 +1,7 @@
+{% if POSTVOTE_ENABLED %}
+<!-- INCLUDECSS postvote.css -->
+<!-- INCLUDEJS postvote.js -->
+<meta name="postvote-vote-url" content="{{ POSTVOTE_VOTE_URL }}">
+<meta name="postvote-creation-time" content="{{ POSTVOTE_CREATION_TIME }}">
+<meta name="postvote-token" content="{{ POSTVOTE_TOKEN }}">
+{% endif %}

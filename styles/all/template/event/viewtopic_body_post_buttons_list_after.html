@@ -1,0 +1,23 @@
+{% if POSTVOTE_ENABLED and postrow.POST_ID_FOR_VOTE %}
+<div class="postvote-widget" data-post-id="{{ postrow.POST_ID_FOR_VOTE }}">
+	<button class="postvote-btn postvote-up{% if postrow.POST_VOTED_UP %} postvote-active{% endif %}"
+		title="{{ lang('POSTVOTE_UPVOTE') }}"
+		{% if not S_USER_LOGGED_IN or not U_CAN_VOTE %}disabled="disabled"{% endif %}
+		aria-label="{{ lang('POSTVOTE_UPVOTE') }}"
+		data-value="1">
+		&#9650;
+	</button>
+
+	<span class="postvote-score" title="{{ lang('POSTVOTE_SCORE') }}: {{ postrow.POST_VOTE_UP }} {{ lang('POSTVOTE_UPVOTE') }} / {{ postrow.POST_VOTE_DOWN }} {{ lang('POSTVOTE_DOWNVOTE') }}">
+		{{ postrow.POST_VOTE_SCORE }}
+	</span>
+
+	<button class="postvote-btn postvote-down{% if postrow.POST_VOTED_DOWN %} postvote-active{% endif %}"
+		title="{{ lang('POSTVOTE_DOWNVOTE') }}"
+		{% if not S_USER_LOGGED_IN or not U_CAN_DOWNVOTE %}disabled="disabled"{% endif %}
+		aria-label="{{ lang('POSTVOTE_DOWNVOTE') }}"
+		data-value="-1">
+		&#9660;
+	</button>
+</div>
+{% endif %}
