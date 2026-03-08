@@ -269,7 +269,7 @@ class vote_controller
 
 		$sql = 'SELECT post_id, poster_id
 			FROM ' . $table_prefix . 'posts
-			WHERE post_id = ' . $post_id;
+			WHERE post_id = ' . (int) $post_id;
 		$result = $this->db->sql_query($sql);
 		$row    = $this->db->sql_fetchrow($result) ?: null;
 		$this->db->sql_freeresult($result);
@@ -285,8 +285,8 @@ class vote_controller
 
 		$sql = 'SELECT vote_value
 			FROM ' . $table_prefix . 'post_votes
-			WHERE post_id = ' . $post_id . '
-				AND user_id = ' . $user_id;
+			WHERE post_id = ' . (int) $post_id . '
+				AND user_id = ' . (int) $user_id;
 		$result = $this->db->sql_query($sql);
 		$row    = $this->db->sql_fetchrow($result);
 		$this->db->sql_freeresult($result);
@@ -297,9 +297,13 @@ class vote_controller
 	{
 		global $table_prefix;
 
-		$sql = 'INSERT INTO ' . $table_prefix . 'post_votes
-			(post_id, user_id, vote_value, vote_time)
-			VALUES (' . $post_id . ', ' . $user_id . ', ' . $vote_value . ', ' . time() . ')';
+		$data = [
+			'post_id'    => (int) $post_id,
+			'user_id'    => (int) $user_id,
+			'vote_value' => (int) $vote_value,
+			'vote_time'  => time(),
+		];
+		$sql = 'INSERT INTO ' . $table_prefix . 'post_votes ' . $this->db->sql_build_array('INSERT', $data);
 		$this->db->sql_query($sql);
 	}
 
@@ -307,10 +311,14 @@ class vote_controller
 	{
 		global $table_prefix;
 
+		$data = [
+			'vote_value' => (int) $vote_value,
+			'vote_time'  => time(),
+		];
 		$sql = 'UPDATE ' . $table_prefix . 'post_votes
-			SET vote_value = ' . $vote_value . ', vote_time = ' . time() . '
-			WHERE post_id = ' . $post_id . '
-				AND user_id = ' . $user_id;
+			SET ' . $this->db->sql_build_array('UPDATE', $data) . '
+			WHERE post_id = ' . (int) $post_id . '
+				AND user_id = ' . (int) $user_id;
 		$this->db->sql_query($sql);
 	}
 
@@ -319,8 +327,8 @@ class vote_controller
 		global $table_prefix;
 
 		$sql = 'DELETE FROM ' . $table_prefix . 'post_votes
-			WHERE post_id = ' . $post_id . '
-				AND user_id = ' . $user_id;
+			WHERE post_id = ' . (int) $post_id . '
+				AND user_id = ' . (int) $user_id;
 		$this->db->sql_query($sql);
 	}
 
@@ -335,7 +343,7 @@ class vote_controller
 		// Count upvotes
 		$sql = 'SELECT COUNT(*) AS cnt
 			FROM ' . $table_prefix . 'post_votes
-			WHERE post_id = ' . $post_id . ' AND vote_value = 1';
+			WHERE post_id = ' . (int) $post_id . ' AND vote_value = 1';
 		$result  = $this->db->sql_query($sql);
 		$vote_up = (int) $this->db->sql_fetchfield('cnt');
 		$this->db->sql_freeresult($result);
@@ -343,18 +351,21 @@ class vote_controller
 		// Count downvotes
 		$sql = 'SELECT COUNT(*) AS cnt
 			FROM ' . $table_prefix . 'post_votes
-			WHERE post_id = ' . $post_id . ' AND vote_value = -1';
+			WHERE post_id = ' . (int) $post_id . ' AND vote_value = -1';
 		$result    = $this->db->sql_query($sql);
 		$vote_down = (int) $this->db->sql_fetchfield('cnt');
 		$this->db->sql_freeresult($result);
 
 		$vote_score = $vote_up - $vote_down;
 
+		$data = [
+			'vote_up'    => $vote_up,
+			'vote_down'  => $vote_down,
+			'vote_score' => $vote_score,
+		];
 		$sql = 'UPDATE ' . $table_prefix . 'posts
-			SET vote_up = ' . $vote_up . ',
-				vote_down = ' . $vote_down . ',
-				vote_score = ' . $vote_score . '
-			WHERE post_id = ' . $post_id;
+			SET ' . $this->db->sql_build_array('UPDATE', $data) . '
+			WHERE post_id = ' . (int) $post_id;
 		$this->db->sql_query($sql);
 
 		return [
@@ -373,14 +384,14 @@ class vote_controller
 
 		$sql = 'SELECT COALESCE(SUM(vote_score), 0) AS rep
 			FROM ' . $table_prefix . 'posts
-			WHERE poster_id = ' . $poster_id;
+			WHERE poster_id = ' . (int) $poster_id;
 		$result     = $this->db->sql_query($sql);
 		$reputation = (int) $this->db->sql_fetchfield('rep');
 		$this->db->sql_freeresult($result);
 
 		$sql = 'UPDATE ' . $table_prefix . 'users
-			SET reputation = ' . $reputation . '
-			WHERE user_id = ' . $poster_id;
+			SET reputation = ' . (int) $reputation . '
+			WHERE user_id = ' . (int) $poster_id;
 		$this->db->sql_query($sql);
 
 		return $reputation;

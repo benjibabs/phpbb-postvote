@@ -68,14 +68,6 @@ class leaderboard_controller
 		// Load language
 		$this->language->add_lang('postvote', 'benjibabs/postvote');
 
-		// Load phpBB page infrastructure (needed for template rendering with header/footer)
-		if (!defined('IN_PHPBB'))
-		{
-			define('IN_PHPBB', true);
-		}
-
-		$this->user->add_lang_ext('benjibabs/postvote', 'postvote');
-
 		$top_users = $this->get_top_users();
 		$top_posts = $this->get_top_posts();
 
